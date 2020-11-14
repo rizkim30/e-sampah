@@ -32,30 +32,24 @@ public class Masuk extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (email.getText().toString().equals("") && pass.getText().toString().equals("")) {
-                    Toast.makeText(getApplicationContext(), "masukkan email dan password terlebih dahulu", Toast.LENGTH_LONG).show();
-                } else {
+                if(email.getText().toString().equals("")&&pass.getText().toString().equals("")){
+                    Toast.makeText(getApplicationContext(),"lengkapi data",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    loginPost loginPost = new loginPost(email.getText().toString(),pass.getText().toString());
                     JsonPlaceHolder jsonPlaceHolder = retrofit.create(JsonPlaceHolder.class);
-                    final loginPost loginPost = new loginPost(email.getText().toString(),pass.getText().toString());
-                    Call<loginPost>call = jsonPlaceHolder.getloginPost(loginPost);
+                    Call<loginPost> call = jsonPlaceHolder.getloginPost(loginPost);
                     call.enqueue(new Callback<com.example.pkm.loginPost>() {
                         @Override
                         public void onResponse(Call<com.example.pkm.loginPost> call, Response<com.example.pkm.loginPost> response) {
-                            Toast.makeText(getApplicationContext(), "Login Berhasil", Toast.LENGTH_LONG).show();
-                           startActivity(new Intent(Masuk.this, Pilihan.class));
-                            finish();
-                            if (!response.isSuccessful()) {
-                                Toast.makeText(getApplicationContext(), "Code:" + response.code(), Toast.LENGTH_SHORT).show();
-                                return;
-                            }
                             loginPost loginPost1 = response.body();
-                            String pesan = loginPost1.getPesan();
-                                Toast.makeText(getApplicationContext(), "pesan:"+pesan, Toast.LENGTH_SHORT).show();
-                            }
+                            String pesan = loginPost1.getId();
+                            Toast.makeText(getApplicationContext(),"Pesan : "+pesan,Toast.LENGTH_SHORT).show();
+                        }
 
                         @Override
                         public void onFailure(Call<com.example.pkm.loginPost> call, Throwable t) {
-                            Toast.makeText(getApplicationContext(), "Lost Connection", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(),"lost connection",Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
