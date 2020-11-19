@@ -44,7 +44,19 @@ public class Masuk extends AppCompatActivity {
                         public void onResponse(Call<com.example.pkm.loginPost> call, Response<com.example.pkm.loginPost> response) {
                             loginPost loginPost1 = response.body();
                             String pesan = loginPost1.getId();
-                            Toast.makeText(getApplicationContext(),"Pesan : "+pesan,Toast.LENGTH_SHORT).show();
+                            if(pesan.equals("Berhasil")){
+                                Toast.makeText(getApplicationContext(),"Login "+pesan ,Toast.LENGTH_SHORT).show();
+                                Intent i=new Intent(Masuk.this,Pilihan.class);
+                                startActivity(i);
+                                onBackPressed();
+
+                            }
+                            else{
+                                Toast.makeText(getApplicationContext(),"Gagal login",Toast.LENGTH_SHORT).show();
+                                email.setText("");
+                                pass.setText("");
+                            }
+
                         }
 
                         @Override
@@ -56,6 +68,11 @@ public class Masuk extends AppCompatActivity {
             }
     });
 
-}
+    }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

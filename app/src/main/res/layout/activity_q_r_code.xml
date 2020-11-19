@@ -13,10 +13,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="69dp"
-        android:layout_marginLeft="69dp"
-        android:layout_marginTop="482dp"
-        android:background="@drawable/ic_btnscan"
-        android:onClick="button1"/>
+        android:layout_marginStart="102dp"
+        android:layout_marginLeft="102dp"
+        android:layout_marginTop="492dp"
+        android:background="@drawable/ic_btnscan" />
 
 </RelativeLayout>
