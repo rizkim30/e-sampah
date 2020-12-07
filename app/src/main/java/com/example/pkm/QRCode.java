@@ -62,12 +62,14 @@ public class QRCode extends AppCompatActivity implements ZXingScannerView.Result
                     getSampah getSampah1 = response.body();
                     String jenis = getSampah1.getJenis();
                     String berat = getSampah1.getBerat();
-                    db.insertOld(text,jenis,berat);
-                    Toast.makeText(getApplicationContext(),"Berhasil",Toast.LENGTH_SHORT).show();
+                    db.insertOld(text,berat,jenis);
+                    Toast.makeText(getApplicationContext(),berat+"Berhasil"+jenis,Toast.LENGTH_SHORT).show();
+                    onBackPressed();
                 }
                 @Override
                 public void onFailure(Call<com.example.pkm.getSampah> call, Throwable t) {
                     Toast.makeText(getApplicationContext(),"Lost connection",Toast.LENGTH_SHORT).show();
+                    onBackPressed();
                 }
             });
         }
@@ -79,13 +81,15 @@ public class QRCode extends AppCompatActivity implements ZXingScannerView.Result
                     getSampah getSampah1 = response.body();
                     String jenis = getSampah1.getJenis();
                     String berat = getSampah1.getBerat();
-                    db.insertOld(text,jenis,berat);
+                    db.insertOld(text,berat,jenis);
                     Toast.makeText(getApplicationContext(),"Berhasil",Toast.LENGTH_SHORT).show();
+                    onBackPressed();
                 }
 
                 @Override
                 public void onFailure(Call<com.example.pkm.getSampah> call, Throwable t) {
                     Toast.makeText(getApplicationContext(),"Lost Connection",Toast.LENGTH_SHORT).show();
+                    onBackPressed();
                 }
             });
         }

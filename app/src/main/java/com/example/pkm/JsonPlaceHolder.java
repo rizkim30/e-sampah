@@ -12,5 +12,4 @@ public interface JsonPlaceHolder {
     @POST("sampah")
     Call<getSampah>getSampahPost(@Body getSampah getSampah);
 
-
 }

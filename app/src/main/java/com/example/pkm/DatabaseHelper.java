@@ -15,11 +15,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table old(id varchar(50),berat varchar(50),jenis varchar(50))");
+        db.execSQL("create table user (id varchar(50),email varchar(50))");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("drop table if exists old");
+        db.execSQL("drop table if exists user");
     }
     public Boolean insertOld(String a,String b,String c){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -39,7 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("select id from old",null);
         String c = null;
-        cursor.moveToFirst();
+        cursor.moveToLast();
         if(cursor.getCount()>0){
             c = cursor.getString(0);
             return c;
@@ -48,11 +50,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return c;
         }
     }
-    public String getBeratOld(){
+    public String getBeratOld(String a){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("select berat from old",null);
+        Cursor cursor = db.rawQuery("select berat from old where id=?",new String[]{a});
         String c = null;
-        cursor.moveToFirst();
+        cursor.moveToLast();
         if(cursor.getCount()>0){
             c = cursor.getString(0);
             return c;
@@ -61,11 +63,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return c;
         }
     }
-    public String getJenisOld(){
+    public String getJenisOld(String a){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("select jenis from old",null);
+        Cursor cursor = db.rawQuery("select jenis from old where id=?",new String[]{a});
         String c = null;
-        cursor.moveToFirst();
+        cursor.moveToLast();
         if(cursor.getCount()>0){
             c = cursor.getString(0);
             return c;
