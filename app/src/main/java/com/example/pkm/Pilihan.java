@@ -14,11 +14,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Pilihan extends AppCompatActivity {
     ImageButton btntabung;
     ImageButton btnscan;
+    DatabaseHelper db;
     public String url = "http://156.67.221.101:1000/user/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pilihan);
+        db = new DatabaseHelper(this);
         btntabung = findViewById(R.id.btntabung);
         btnscan = findViewById(R.id.btnscan);
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
@@ -41,6 +43,7 @@ public class Pilihan extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        db.delete_old();
         finish();
     }
 }

@@ -11,5 +11,8 @@ public interface JsonPlaceHolder {
     Call<loginPost>getloginPost(@Body loginPost loginPost);
     @POST("sampah")
     Call<getSampah>getSampahPost(@Body getSampah getSampah);
-
+    @POST("input")
+    Call<postTransaksi>getTransaksiPost(@Body postTransaksi postTransaksi);
+    @POST("cek")
+    Call<getCekTransaksi>getCektransaksi(@Body getCekTransaksi getCekTransaksi);
 }

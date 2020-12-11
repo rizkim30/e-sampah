@@ -18,6 +18,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Masuk extends AppCompatActivity {
+    DatabaseHelper db;
     EditText email,pass;
     ImageButton login;
     public String url = "http://156.67.221.101:1000/user/";
@@ -25,6 +26,7 @@ public class Masuk extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_masuk);
+        db =  new DatabaseHelper(this);
         email=findViewById(R.id.inpemail);
         pass=findViewById(R.id.passmasuk);
         login=findViewById(R.id.btnmasuk2);
@@ -44,19 +46,18 @@ public class Masuk extends AppCompatActivity {
                         public void onResponse(Call<com.example.pkm.loginPost> call, Response<com.example.pkm.loginPost> response) {
                             loginPost loginPost1 = response.body();
                             String pesan = loginPost1.getId();
-                            if(pesan.equals("Berhasil")){
-                                Toast.makeText(getApplicationContext(),"Login "+pesan ,Toast.LENGTH_SHORT).show();
-                                Intent i=new Intent(Masuk.this,Pilihan.class);
-                                startActivity(i);
-                                onBackPressed();
-
-                            }
-                            else{
+                            if(pesan.equals("Akun Tersebut Tidak Tersedia")){
                                 Toast.makeText(getApplicationContext(),"Gagal login",Toast.LENGTH_SHORT).show();
                                 email.setText("");
                                 pass.setText("");
                             }
-
+                            else{
+                                Toast.makeText(getApplicationContext(),"Login "+pesan ,Toast.LENGTH_SHORT).show();
+                                Intent i = new Intent(Masuk.this,Pilihan.class);
+                                db.insertUser(pesan,email.getText().toString());
+                                startActivity(i);
+                                onBackPressed();
+                            }
                         }
 
                         @Override
